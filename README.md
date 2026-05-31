@@ -30,17 +30,17 @@ A modern full-stack finance management system to track income, expenses, budgets
 ## 🖼️ Screenshots
 
 ### 📊 Dashboard Overview
-![DashboardUser](docs\dashboardUser.png)
-![DashboardAdmin](docs\dashboardAdmin.png)!
+![DashboardUser](docs/dashboardUser.png)
+![DashboardAdmin](docs/dashboardAdmin.png)
 
 ### 💰 Transactions Page
-![Transactions](docs\transaction.png)
+![Transactions](docs/transaction.png)
 
 ### 🧾 Budget Management
-![Budgets](docs\budget.png)
+![Budgets](docs/budget.png)
 
 ### 📈 Analytics View
-![Analytics](docs\Analytics.png)
+![Analytics](docs/Analytics.png)
 
 ---
 
