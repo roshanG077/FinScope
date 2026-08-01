@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import { LogoIcon } from '../components/ui/Logo';
 import { FiMail, FiLock, FiUser, FiPhone, FiAlertCircle } from 'react-icons/fi';
 
 export default function Auth({ inline = false }) {
   const { login, register } = useAuth();
+  const { setTheme } = useTheme();
   const [isLogin, setIsLogin] = useState(true);
+
+  // Force dark theme as default for Auth page
+  useEffect(() => {
+    if (setTheme) {
+      setTheme('dark');
+    }
+  }, [setTheme]);
   
   // Form values
   const [email, setEmail] = useState('');
@@ -86,10 +95,10 @@ export default function Auth({ inline = false }) {
         <div className="w-14 h-14 mx-auto flex items-center justify-center mb-4">
           <LogoIcon className="w-full h-full drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
         </div>
-        <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-extrabold tracking-tight text-[var(--text-primary)]">
           FinScope
         </h1>
-        <p className="text-[var(--text-secondary)] text-sm mt-2 font-semibold">India's Smartest Portfolio & Expense Triage</p>
+        <p className="text-[var(--text-secondary)] text-sm mt-2 font-semibold">Personal Finance & Expense Tracker</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -106,6 +115,7 @@ export default function Auth({ inline = false }) {
                 value={name} 
                 onChange={e => setName(e.target.value)}
                 className="fin-input !pl-10"
+                placeholder="Enter your full name"
               />
             </div>
           </div>
@@ -123,6 +133,7 @@ export default function Auth({ inline = false }) {
               value={email} 
               onChange={e => setEmail(e.target.value)}
               className="fin-input !pl-10"
+              placeholder="Enter your email address"
             />
           </div>
         </div>
@@ -139,6 +150,7 @@ export default function Auth({ inline = false }) {
               value={password} 
               onChange={e => setPassword(e.target.value)}
               className="fin-input !pl-10"
+              placeholder="••••••••"
             />
           </div>
         </div>
@@ -156,6 +168,7 @@ export default function Auth({ inline = false }) {
                   value={phone} 
                   onChange={e => setPhone(e.target.value)}
                   className="fin-input !pl-8"
+                  placeholder="Enter your phone number (optional)"
                 />
               </div>
             </div>
@@ -179,7 +192,7 @@ export default function Auth({ inline = false }) {
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full btn btn-primary mt-2"
+          className="w-full btn-ui btn-variant-primary mt-2"
         >
           {loading ? 'Processing...' : isLogin ? 'Sign In' : 'Create Portfolio'}
         </button>
@@ -211,7 +224,7 @@ export default function Auth({ inline = false }) {
   }
 
   return (
-    <div className="min-h-screen w-screen flex items-center justify-center bg-[#050812] px-4 py-12 relative overflow-hidden animate-fade">
+    <div className="min-h-screen w-screen flex items-center justify-center bg-[var(--bg-main)] px-4 py-12 relative overflow-hidden animate-fade">
       {/* Decorative Blur Background Blobs */}
       <div className="absolute top-[10%] left-[15%] w-[350px] h-[350px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       <div className="absolute bottom-[10%] right-[15%] w-[450px] h-[450px] bg-sky-500/10 rounded-full blur-[120px] pointer-events-none"></div>

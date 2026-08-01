@@ -72,6 +72,7 @@ export default function BudgetModal({ isOpen, onClose, onSubmit, editingBudget, 
             value={form.name} 
             onChange={e => setForm({ ...form, name: e.target.value })}
             className="input-ui"
+            placeholder="Enter budget label"
           />
         </div>
 
@@ -84,6 +85,7 @@ export default function BudgetModal({ isOpen, onClose, onSubmit, editingBudget, 
               value={form.amount} 
               onChange={e => setForm({ ...form, amount: e.target.value })}
               className="input-ui"
+              placeholder="Enter limit amount"
             />
           </div>
           <div>
@@ -125,6 +127,7 @@ export default function BudgetModal({ isOpen, onClose, onSubmit, editingBudget, 
               value={form.year} 
               onChange={e => setForm({ ...form, year: e.target.value })}
               className="input-ui"
+              placeholder="Enter year"
             />
           </div>
         </div>

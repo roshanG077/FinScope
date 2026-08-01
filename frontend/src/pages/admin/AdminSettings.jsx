@@ -87,6 +87,7 @@ export default function AdminSettings() {
                     value={settings.platformName}
                     onChange={(e) => setSettings({ ...settings, platformName: e.target.value })}
                     className="input-ui !bg-[rgba(0,0,0,0.02)] dark:!bg-[rgba(255,255,255,0.02)]"
+                    placeholder="Enter platform name"
                   />
                 </div>
                 
@@ -98,6 +99,7 @@ export default function AdminSettings() {
                     value={settings.supportEmail}
                     onChange={(e) => setSettings({ ...settings, supportEmail: e.target.value })}
                     className="input-ui !bg-[rgba(0,0,0,0.02)] dark:!bg-[rgba(255,255,255,0.02)]"
+                    placeholder="Enter support email address"
                   />
                 </div>
               </div>

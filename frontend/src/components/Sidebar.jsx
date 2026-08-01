@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { LogoIcon } from './ui/Logo';
 import { 
-  FiGrid, FiList, FiCreditCard, FiPieChart, FiLogOut, FiX, FiTrendingUp, FiUser, FiSettings, FiBarChart2 
+  FiGrid, FiList, FiCreditCard, FiPieChart, FiLogOut, FiX, FiTrendingUp, FiUser, FiSettings, FiBarChart2, FiAward
 } from 'react-icons/fi';
 
 export default function Sidebar({ currentTab, setCurrentTab, sidebarOpen, setSidebarOpen }) {
@@ -16,7 +16,8 @@ export default function Sidebar({ currentTab, setCurrentTab, sidebarOpen, setSid
     { id: 'analytics', label: 'Analytics', icon: <FiBarChart2 size={18} /> },
     { id: 'reports', label: 'Reports', icon: <FiPieChart size={18} /> },
     { id: 'profile', label: 'Profile', icon: <FiUser size={18} /> },
-    { id: 'settings', label: 'Settings', icon: <FiSettings size={18} /> }
+    { id: 'settings', label: 'Settings', icon: <FiSettings size={18} /> },
+    { id: 'premium', label: 'Premium', icon: <FiAward size={18} />, isPremium: true }
   ];
 
   return (
@@ -50,10 +51,16 @@ export default function Sidebar({ currentTab, setCurrentTab, sidebarOpen, setSid
           <button 
             key={item.id}
             onClick={() => { setCurrentTab(item.id); setSidebarOpen(false); }}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-sm transition-fast ${currentTab === item.id ? 'bg-[rgba(99,102,241,0.12)] text-[var(--primary)] border-l-4 border-[var(--primary)]' : 'text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]'}`}
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg font-medium text-sm transition-fast 
+              ${currentTab === item.id && !item.isPremium ? 'bg-[rgba(99,102,241,0.12)] text-[var(--primary)] border-l-4 border-[var(--primary)]' : ''}
+              ${!item.isPremium && currentTab !== item.id ? 'text-[var(--text-secondary)] hover:bg-[var(--hover-bg)] hover:text-[var(--text-primary)]' : ''}
+              ${item.isPremium ? 'border border-amber-500/20 bg-amber-500/5 hover:bg-amber-500/10 text-amber-500/80 hover:text-amber-400' : ''}
+              ${currentTab === item.id && item.isPremium ? 'border-l-4 !border-amber-400 bg-amber-500/10' : ''}
+            `}
           >
             {item.icon}
-            <span>{item.label}</span>
+            <span className="flex-1 text-left">{item.label}</span>
+            {item.isPremium && <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">Coming Soon</span>}
           </button>
         ))}
       </nav>
@@ -62,8 +69,8 @@ export default function Sidebar({ currentTab, setCurrentTab, sidebarOpen, setSid
       <div className="p-4 border-t border-[var(--border)]">
         {isDemo && (
           <div className="mb-4 p-3 bg-[rgba(99,102,241,0.06)] border border-[var(--border)] rounded-lg text-[10px] text-[var(--text-secondary)] leading-relaxed">
-            <span className="font-bold text-[var(--primary)] block mb-0.5">Simulation Active</span>
-            Connected via client-side cached databases because local MySQL is unconnected.
+            <span className="font-bold text-[var(--primary)] block mb-0.5">Demo Mode Active</span>
+            You are currently exploring FinScope in a local portfolio demonstration environment.
           </div>
         )}
 

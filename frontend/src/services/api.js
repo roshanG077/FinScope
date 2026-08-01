@@ -52,8 +52,8 @@ let simulatedBudgets = [
 let simulatedUsers = [
   { id: 1, name: 'Admin User', email: 'admin@finscope.com', role: 'ADMIN', isActive: true, createdAt: '2026-01-15T10:00:00' },
   { id: 2, name: 'Demo User', email: 'demo@finscope.com', role: 'USER', isActive: true, createdAt: '2026-02-20T14:30:00' },
-  { id: 3, name: 'John Doe', email: 'john@example.com', role: 'USER', isActive: false, createdAt: '2026-03-10T09:15:00' },
-  { id: 4, name: 'Priya Sharma', email: 'priya@example.com', role: 'USER', isActive: true, createdAt: '2026-04-05T16:45:00' }
+  { id: 3, name: 'Business Client', email: 'client@company.com', role: 'USER', isActive: false, createdAt: '2026-03-10T09:15:00' },
+  { id: 4, name: 'Guest User', email: 'guest@company.com', role: 'USER', isActive: true, createdAt: '2026-04-05T16:45:00' }
 ];
 
 // Master API wrapper: handles API errors by automatically converting to Mock Mode

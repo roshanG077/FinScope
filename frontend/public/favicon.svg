@@ -1,0 +1,36 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="finRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1e3a8a" />
+    </linearGradient>
+    <linearGradient id="finBarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <mask id="cutoutMask">
+      <rect x="0" y="0" width="100" height="100" fill="white" />
+      <path d="M14 62 L28 52 L42 56 L56 36 L76 22" stroke="black" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="14" cy="62" r="5" fill="black" />
+      <circle cx="28" cy="52" r="5" fill="black" />
+      <circle cx="42" cy="56" r="5" fill="black" />
+      <circle cx="56" cy="36" r="5" fill="black" />
+      <circle cx="76" cy="22" r="5" fill="black" />
+    </mask>
+  </defs>
+  
+  <g mask="url(#cutoutMask)">
+    <circle cx="44" cy="44" r="30" stroke="url(#finRingGrad)" stroke-width="8" />
+    <path d="M64 64 L82 82" stroke="#172554" stroke-width="14" stroke-linecap="round" />
+    <rect x="24" y="46" width="8" height="14" rx="2" fill="url(#finBarGrad)" />
+    <rect x="38" y="32" width="8" height="28" rx="2" fill="url(#finBarGrad)" />
+    <rect x="52" y="16" width="8" height="44" rx="2" fill="url(#finBarGrad)" />
+  </g>
+
+  <path d="M14 62 L28 52 L42 56 L56 36 L76 22" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="14" cy="62" r="2.5" fill="#2563eb" />
+  <circle cx="28" cy="52" r="2.5" fill="#2563eb" />
+  <circle cx="42" cy="56" r="2.5" fill="#2563eb" />
+  <circle cx="56" cy="36" r="2.5" fill="#2563eb" />
+  <circle cx="76" cy="22" r="2.5" fill="#2563eb" />
+</svg>

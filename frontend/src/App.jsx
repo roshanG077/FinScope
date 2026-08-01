@@ -5,6 +5,7 @@ import { ToastProvider, useToast } from './context/ToastContext';
 import AppLayout from './components/layout/AppLayout';
 import TransactionModal from './components/modals/TransactionModal';
 import BudgetModal from './components/modals/BudgetModal';
+import ConfirmModal from './components/modals/ConfirmModal';
 import Modal from './components/Modal';
 import LandingPage from './pages/LandingPage';
 import Auth from './pages/Auth';
@@ -16,6 +17,7 @@ import Income from './pages/Income';
 import Analytics from './pages/Analytics';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
+import Premium from './pages/Premium';
 import AdminSidebar from './components/AdminSidebar';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import UserManagement from './pages/admin/UserManagement';
@@ -42,9 +44,10 @@ function AppContent() {
 
   const [showBudgetModal, setShowBudgetModal] = useState(false);
   const [editingBudget, setEditingBudget] = useState(null);
-
-  const [showAdvisorModal, setShowAdvisorModal] = useState(false);
   const [activeTabPlan, setActiveTabPlan] = useState('Free'); // Plan tier choice
+
+  // Delete Confirmation State
+  const [deleteItem, setDeleteItem] = useState(null);
 
   // Load portfolio items & Sync navigation view state
   useEffect(() => {
@@ -107,14 +110,8 @@ function AppContent() {
     await loadAllData();
   };
 
-  const handleDeleteTx = async (id) => {
-    try {
-      await api.deleteTransaction(id);
-      showToast('success', 'Transaction record deleted successfully.');
-      await loadAllData();
-    } catch (err) {
-      showToast('error', 'Failed to delete transaction record.');
-    }
+  const handleDeleteTx = (id) => {
+    setDeleteItem({ type: 'tx', id });
   };
 
   // Budget Handlers
@@ -133,13 +130,25 @@ function AppContent() {
     await loadAllData();
   };
 
-  const handleDeleteBudget = async (id) => {
+  const handleDeleteBudget = (id) => {
+    setDeleteItem({ type: 'budget', id });
+  };
+
+  const executeDelete = async () => {
+    if (!deleteItem) return;
     try {
-      await api.deleteBudget(id);
-      showToast('success', 'Budget limit deleted successfully.');
+      if (deleteItem.type === 'tx') {
+        await api.deleteTransaction(deleteItem.id);
+        showToast('success', 'Transaction record deleted successfully.');
+      } else if (deleteItem.type === 'budget') {
+        await api.deleteBudget(deleteItem.id);
+        showToast('success', 'Budget limit deleted successfully.');
+      }
       await loadAllData();
     } catch (err) {
-      showToast('error', 'Failed to delete budget limit.');
+      showToast('error', 'Failed to delete record.');
+    } finally {
+      setDeleteItem(null);
     }
   };
 
@@ -204,7 +213,6 @@ function AppContent() {
             <Reports 
               transactions={transactions} 
               categories={categories} 
-              onAdviceHubClick={() => setShowAdvisorModal(true)}
             />
           )}
 
@@ -223,6 +231,8 @@ function AppContent() {
           {currentTab === 'profile' && <Profile />}
           
           {currentTab === 'settings' && <Settings setCurrentTab={setCurrentTab} />}
+
+          {currentTab === 'premium' && <Premium />}
         </>
       )}
 
@@ -244,42 +254,15 @@ function AppContent() {
         categories={categories}
       />
 
-      {/* The AI Wealth Advisor popup feature */}
-      <Modal
-        isOpen={showAdvisorModal}
-        onClose={() => setShowAdvisorModal(false)}
-        title="Aura Wealth Advisor (AI)"
-      >
-        <div className="space-y-4 text-xs leading-relaxed text-[var(--text-secondary)]">
-          <div className="p-3 bg-[rgba(99,102,241,0.06)] border border-[var(--primary)] text-[var(--primary)] rounded-md font-semibold text-center uppercase tracking-wider">
-            Premium Indian Investment Insights
-          </div>
+      <ConfirmModal
+        isOpen={!!deleteItem}
+        onClose={() => setDeleteItem(null)}
+        onConfirm={executeDelete}
+        title="Confirm Deletion"
+        message={`Are you sure you want to delete this ${deleteItem?.type === 'tx' ? 'transaction' : 'budget'}? This action cannot be undone.`}
+      />
 
-          <div className="space-y-3.5 divide-y divide-[var(--border)]">
-            <div className="space-y-1 pt-1">
-              <span className="font-bold text-emerald-400 block text-xs">Section 80C Tax Planning</span>
-              <p>Maximize your Old Regime tax savings! Save up to **₹46,800/year** in taxes by investing up to **₹1,50,000** in **ELSS Mutual Funds** (lock-in: 3 years) vs standard **PPF** (lock-in: 15 years, fixed 7.1% tax-free interest). Compare these options under the advice of your CA.</p>
-            </div>
-            
-            <div className="space-y-1 pt-3.5">
-              <span className="font-bold text-sky-400 block text-xs">Emergency Shield Formula</span>
-              <p>We recommend building an emergency reserve equal to **6 months** of expenses. Given your active budgets, maintain at least **₹1,50,000** in highly liquid instruments like High-Yield Savings Accounts or Liquid Debt Funds before leveraging equity portfolios.</p>
-            </div>
 
-            <div className="space-y-1 pt-3.5">
-              <span className="font-bold text-amber-400 block text-xs">Systematic Investment Plan (SIP)</span>
-              <p>Automate your wealth. Configure your mutual fund and stock SIPs on the **5th of every month** (right after salary payout). This secures consistent long-term compound growth of **12-15%** under typical Indian market indices (Nifty 50).</p>
-            </div>
-          </div>
-
-          <button 
-            onClick={() => setShowAdvisorModal(false)}
-            className="w-full btn-ui btn-variant-primary !py-2 !rounded-md mt-2 font-bold"
-          >
-            Acknowledge Insights
-          </button>
-        </div>
-      </Modal>
     </AppLayout>
   );
 }

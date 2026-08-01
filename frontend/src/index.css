@@ -409,7 +409,7 @@ html, body {
 .btn-variant-primary {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #fff;
-  box-shadow: var(--shadow-glow);
+  box-shadow: 0 4px 14px var(--primary-glow);
 }
 .btn-variant-primary:hover {
   filter: brightness(1.08);
@@ -466,6 +466,11 @@ html, body {
   background-position: right 14px center;
   background-size: 14px;
   padding-right: 40px;
+}
+
+select option {
+  background-color: var(--bg-surface) !important;
+  color: var(--text-primary) !important;
 }
 
 .table-wrapper {
@@ -588,3 +593,19 @@ html, body {
   background-size: 14px !important;
   padding-right: 40px !important;
 }
+
+/* ─── RECHARTS TOOLTIP FIX FOR DARK MODE ─── */
+.recharts-default-tooltip {
+  background-color: var(--bg-surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+}
+.recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-value,
+.recharts-tooltip-item-separator,
+.recharts-tooltip-label {
+  color: var(--text-primary) !important;
+}
+

@@ -104,6 +104,7 @@ export default function TransactionModal({ isOpen, onClose, onSubmit, editingTx,
               value={form.amount} 
               onChange={e => setForm({ ...form, amount: e.target.value })}
               className="input-ui"
+              placeholder="Enter amount"
             />
           </div>
         </div>
@@ -116,6 +117,7 @@ export default function TransactionModal({ isOpen, onClose, onSubmit, editingTx,
             value={form.description} 
             onChange={e => setForm({ ...form, description: e.target.value })}
             className="input-ui"
+            placeholder="Enter a brief description"
           />
         </div>
 
@@ -168,6 +170,7 @@ export default function TransactionModal({ isOpen, onClose, onSubmit, editingTx,
               value={form.tags} 
               onChange={e => setForm({ ...form, tags: e.target.value })}
               className="input-ui"
+              placeholder="Add tags separated by commas"
             />
           </div>
         </div>
@@ -179,6 +182,7 @@ export default function TransactionModal({ isOpen, onClose, onSubmit, editingTx,
             onChange={e => setForm({ ...form, note: e.target.value })}
             rows="2"
             className="input-ui resize-none"
+            placeholder="Add any extra details or invoice numbers..."
           ></textarea>
         </div>
 

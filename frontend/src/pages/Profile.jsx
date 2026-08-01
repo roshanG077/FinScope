@@ -97,6 +97,7 @@ export default function Profile() {
                       value={formData.name} 
                       onChange={e => setFormData({...formData, name: e.target.value})} 
                       className="input-ui !pl-9" 
+                      placeholder="Enter your full name"
                     />
                   </div>
                 </div>
@@ -134,6 +135,7 @@ export default function Profile() {
                     value={passwordData.currentPassword}
                     onChange={e => setPasswordData({...passwordData, currentPassword: e.target.value})}
                     className="input-ui !pl-9" 
+                    placeholder="••••••••"
                   />
                 </div>
               </div>
@@ -147,6 +149,7 @@ export default function Profile() {
                     value={passwordData.newPassword}
                     onChange={e => setPasswordData({...passwordData, newPassword: e.target.value})}
                     className="input-ui !pl-9" 
+                    placeholder="••••••••"
                   />
                 </div>
               </div>
@@ -160,6 +163,7 @@ export default function Profile() {
                     value={passwordData.confirmPassword}
                     onChange={e => setPasswordData({...passwordData, confirmPassword: e.target.value})}
                     className="input-ui !pl-9" 
+                    placeholder="••••••••"
                   />
                 </div>
               </div>

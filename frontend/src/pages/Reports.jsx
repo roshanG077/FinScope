@@ -112,17 +112,6 @@ export default function Reports({ transactions, categories, onAdviceHubClick }) 
             <h3 className="text-3xl font-black tracking-tight text-[var(--primary)] mt-4">{savingsRate}%</h3>
           </div>
 
-          <div 
-            onClick={onAdviceHubClick}
-            className="mt-6 p-3 bg-[rgba(99,102,241,0.06)] border border-[var(--border)] rounded-md text-xs leading-relaxed text-[var(--text-secondary)] cursor-pointer hover:bg-[rgba(99,102,241,0.12)] hover:border-[var(--primary)] transition-fast hover:scale-[1.01]"
-            title="Click to open Aura AI Wealth Advisor"
-          >
-            <span className="font-bold text-[var(--primary)] flex items-center justify-between mb-0.5">
-              <span>Advice Hub</span>
-              <span className="text-[10px] bg-[rgba(99,102,241,0.2)] px-1.5 py-0.5 rounded uppercase font-bold tracking-wider animate-pulse">View Advice</span>
-            </span>
-            To maintain high-quality portfolio growth, aim to secure a savings rate above **20%** consistently month-over-month. Click for personalized Indian tax & SIP advice.
-          </div>
         </Card>
 
         {/* Cash Flow Bar Chart */}

@@ -94,6 +94,7 @@ export default function Income({
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="input-ui !pl-9 !py-1.5"
+            placeholder="Search income records..."
           />
         </div>
       </div>

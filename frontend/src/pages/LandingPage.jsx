@@ -4,6 +4,7 @@ import { ChevronRight, TrendingUp, PieChart, Target, Check } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useAuth } from '../context/AuthContext';
 import { LogoIcon } from '../components/ui/Logo';
+import { PrivacyPolicy, TermsOfService, Contact } from './DemoPages';
 
 const demoData = [
   { name: 'Jan', income: 45000, expense: 28000 },
@@ -35,9 +36,15 @@ const gradientStyle = {
 
 export default function LandingPage({ onLaunchApp }) {
   const { user } = useAuth();
+  const [activeSection, setActiveSection] = useState('home');
   
   const handleCtaClick = () => {
     onLaunchApp();
+  };
+
+  const handleNavClick = (section) => {
+    setActiveSection(section);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -51,7 +58,7 @@ export default function LandingPage({ onLaunchApp }) {
       {/* NAVBAR */}
       <nav className="relative z-10 w-full border-b border-white/5 bg-black/20 backdrop-blur-md">
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={handleCtaClick}>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavClick('home')}>
             <LogoIcon className="w-8 h-8" />
             <span className="font-bold tracking-tight text-lg">FinScope</span>
           </div>
@@ -62,8 +69,11 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-24 text-center flex flex-col items-center">
+      {/* DYNAMIC CONTENT */}
+      {activeSection === 'home' && (
+        <>
+          {/* HERO SECTION */}
+          <section className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-24 text-center flex flex-col items-center">
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,31 +158,31 @@ export default function LandingPage({ onLaunchApp }) {
         </div>
       </section>
 
-      {/* PRICING / SUBSCRIPTION SECTION */}
+      {/* CAPABILITIES SECTION */}
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24 border-t border-white/5">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Simple, transparent pricing</h2>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">Core Functionality</h2>
           <p className="text-white/50 text-sm md:text-base max-w-xl mx-auto">
-            Choose the plan that best fits your financial tracking needs. No hidden fees or surprises.
+            Everything you need to manage your personal finances, built into a clean and responsive dashboard.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {/* Free Tier */}
+          {/* Tracker Tier */}
           <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:bg-white/[0.04] transition-all flex flex-col">
-            <h3 className="text-lg font-bold text-white mb-2">Free</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-extrabold tracking-tight">₹0</span>
-              <span className="text-white/50 text-sm">/month</span>
-            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Tracking</h3>
             <p className="text-sm text-white/50 mb-8 border-b border-white/5 pb-8">
-              Perfect for getting started with basic expense tracking.
+              Log and monitor your daily cash flow.
             </p>
             <ul className="space-y-4 mb-8 flex-1">
-              {['Up to 50 transactions/mo', 'Basic budgeting', 'Standard analytics', 'Community support'].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+              {[
+                { text: 'Expense tracking', status: 'ready' },
+                { text: 'Income tracking', status: 'ready' },
+                { text: 'Transaction management', status: 'ready' }
+              ].map((feature, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-white/90">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>{feature}</span>
+                  <span className="flex-1 flex flex-wrap items-center gap-2">{feature.text}</span>
                 </li>
               ))}
             </ul>
@@ -181,50 +191,48 @@ export default function LandingPage({ onLaunchApp }) {
             </button>
           </div>
 
-          {/* Pro Tier (Highlighted) */}
+          {/* Analytics Tier */}
           <div className="p-8 rounded-3xl bg-gradient-to-b from-indigo-500/10 to-transparent border border-indigo-500/30 hover:border-indigo-500/50 transition-all flex flex-col relative md:scale-105 shadow-[0_0_40px_rgba(99,102,241,0.1)]">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-1 bg-indigo-500 text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-lg">
-              Most Popular
-            </div>
-            <h3 className="text-lg font-bold text-indigo-400 mb-2">Pro</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-extrabold tracking-tight">₹199</span>
-              <span className="text-white/50 text-sm">/month</span>
-            </div>
+            <h3 className="text-lg font-bold text-indigo-400 mb-2">Analytics</h3>
             <p className="text-sm text-white/50 mb-8 border-b border-white/5 pb-8">
-              For power users who need deep financial insights.
+              Visualize your financial health with charts.
             </p>
             <ul className="space-y-4 mb-8 flex-1">
-              {['Unlimited transactions', 'Unlimited budget limits', 'Advanced visual analytics', 'Priority email support', 'Custom tags & export'].map((feature, i) => (
+              {[
+                { text: 'Visual charts', status: 'ready' },
+                { text: 'Category distribution', status: 'ready' },
+                { text: 'Monthly reports', status: 'ready' },
+                { text: 'Custom tags', status: 'ready' }
+              ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-white/90">
                   <Check className="w-5 h-5 text-indigo-400 shrink-0" />
-                  <span>{feature}</span>
+                  <span className="flex-1 flex flex-wrap items-center gap-2">{feature.text}</span>
                 </li>
               ))}
             </ul>
-            <PrimaryButton label="Upgrade to Pro" onClick={handleCtaClick} full={true} />
+            <PrimaryButton label="View Analytics" onClick={handleCtaClick} full={true} />
           </div>
 
-          {/* Ultimate Tier */}
+          {/* Management Tier */}
           <div className="p-8 rounded-3xl bg-white/[0.02] border border-white/10 hover:bg-white/[0.04] transition-all flex flex-col">
-            <h3 className="text-lg font-bold text-white mb-2">Ultimate</h3>
-            <div className="mb-6">
-              <span className="text-4xl font-extrabold tracking-tight">₹499</span>
-              <span className="text-white/50 text-sm">/month</span>
-            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Management</h3>
             <p className="text-sm text-white/50 mb-8 border-b border-white/5 pb-8">
-              For families and businesses requiring collaboration.
+              Securely manage your budget limits.
             </p>
             <ul className="space-y-4 mb-8 flex-1">
-              {['Everything in Pro', 'Up to 5 team members', 'AI Wealth Advisor insights', 'API access', 'Dedicated account manager'].map((feature, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-white/70">
+              {[
+                { text: 'Budget management', status: 'ready' },
+                { text: 'Secure authentication', status: 'ready' },
+                { text: 'Dark mode interface', status: 'ready' }
+              ].map((feature, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-white/90">
                   <Check className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span>{feature}</span>
+                  <span className="flex-1 flex flex-wrap items-center gap-2">{feature.text}</span>
                 </li>
               ))}
             </ul>
             <button onClick={handleCtaClick} className="w-full py-3 rounded-full bg-white/5 text-white font-semibold hover:bg-white/10 transition-colors">
-              Contact Sales
+              Access Settings
             </button>
           </div>
         </div>
@@ -298,6 +306,12 @@ export default function LandingPage({ onLaunchApp }) {
 
         </div>
       </section>
+      </>
+      )}
+
+      {activeSection === 'privacy' && <PrivacyPolicy />}
+      {activeSection === 'terms' && <TermsOfService />}
+      {activeSection === 'contact' && <Contact />}
 
       {/* FOOTER */}
       <footer className="relative z-10 w-full border-t border-white/5 bg-[#050812] py-12">
@@ -312,9 +326,9 @@ export default function LandingPage({ onLaunchApp }) {
           <div className="w-full flex flex-col md:flex-row items-center justify-between border-t border-white/5 pt-8 text-xs text-white/40 font-medium gap-4">
             <span>© {new Date().getFullYear()} FinScope. All rights reserved.</span>
             <div className="flex items-center gap-4">
-              <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white/70 transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white/70 transition-colors">Contact</a>
+              <button onClick={() => handleNavClick('privacy')} className="hover:text-white/70 transition-colors">Privacy Policy</button>
+              <button onClick={() => handleNavClick('terms')} className="hover:text-white/70 transition-colors">Terms of Service</button>
+              <button onClick={() => handleNavClick('contact')} className="hover:text-white/70 transition-colors">Contact</button>
             </div>
           </div>
         </div>
